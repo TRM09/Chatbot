@@ -17,24 +17,29 @@
             height: 100vh;
         }
         .chat-container {
-            width: 320px; /* Фиксированная ширина */
-            height: 568px; /* Фиксированная высота (16:9) */
+            width: 90%; /* Ширина контейнера */
+            max-width: 360px; /* Максимальная ширина */
+            height: 640px; /* Высота для соотношения 16:9 */
             background: #fff;
             border-radius: 10px;
             padding: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
+            position: relative;
         }
         .chat-header {
-            font-size: 18px; /* Уменьшенный размер шрифта */
+            font-size: 18px;
             font-weight: bold;
-            color: #a347cc; /* Фиолетовый цвет */
+            color: #a347cc;
+            text-align: center; /* Заголовок по центру */
+            padding: 10px 0; /* Отступы для заголовка */
+            position: relative; /* Для позиционирования стрелки */
         }
         .chat-box {
             background: #d9d9d9;
             border-radius: 10px;
-            padding: 10px; /* Уменьшенный отступ */
+            padding: 10px;
             flex-grow: 1;
             text-align: left;
             margin-top: 10px;
@@ -49,37 +54,38 @@
         }
         .chat-input {
             flex: 1;
-            padding: 8px; /* Уменьшенный отступ */
+            padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
             outline: none;
-            font-size: 14px; /* Уменьшенный размер шрифта */
+            font-size: 14px;
         }
         .send-button, .clear-button {
-            padding: 8px 12px; /* Уменьшенный отступ */
+            padding: 8px 12px;
             margin-left: 5px;
-            background: #5A9BD5; /* Новый синий цвет */
+            background: #5A9BD5;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 14px; /* Уменьшенный размер шрифта */
+            font-size: 14px;
         }
         .send-button:hover, .clear-button:hover {
-            background: #4a8ac4; /* Темный оттенок нового синего */
+            background: #4a8ac4;
         }
         .back-button {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 24px;
-            color: #5A9BD5; /* Новый синий цвет */
+            top: 5px; /* Поднята выше */
+            left: 10px;
+            font-size: 24px; /* Уменьшенный размер стрелки */
+            color: #5A9BD5;
             text-decoration: none;
             cursor: pointer;
-            font-weight: bold; /* Увеличиваем толщину стрелки */
+            font-weight: bold;
+            line-height: 1;
         }
         .back-button:hover {
-            color: #4a8ac4; /* Темный оттенок нового синего */
+            color: #4a8ac4;
         }
         .clear-button {
             margin-top: 10px;
@@ -87,15 +93,16 @@
         }
         .message {
             margin: 5px 0;
-            padding: 8px; /* Уменьшенный отступ */
+            padding: 8px;
             border-radius: 5px;
             animation: fadeIn 0.5s;
             max-width: 80%;
             word-wrap: break-word;
-            font-size: 14px; /* Уменьшенный размер шрифта */
+            font-size: 14px;
         }
         .user-message {
-            background-color: #e1ffc7;
+            background-color: #5A9BD5; /* Синий фон */
+            color: white; /* Белый текст */
             align-self: flex-end;
             text-align: right;
         }
@@ -104,36 +111,33 @@
             align-self: flex-start;
             text-align: left;
         }
-        .message strong {
-            font-weight: bold;
-        }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
         .loading {
             display: none;
-            color: #000; /* Черный цвет */
+            color: #000;
             font-style: italic;
-            background-color: #d9d9d9; /* Серый фон */
-            padding: 8px; /* Уменьшенный отступ */
+            background-color: #d9d9d9; /* Серый фон, как у диалогового окна */
+            padding: 8px;
             border-radius: 5px;
-            margin-bottom: 10px; /* Перемещаем над полем ввода */
+            margin-bottom: 10px;
             text-align: center;
-            font-size: 14px; /* Уменьшенный размер шрифта */
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <!-- Стрелка "назад" с ссылкой -->
-    <a href="https://myappreshenie.netlify.app/" class="back-button">&#x2190;</a>
-
     <div class="chat-container">
-        <div class="chat-header">Чат бот</div>
+        <!-- Стрелка "назад" с ссылкой -->
+        <a href="https://myappreshenie.netlify.app/" class="back-button">&#x2190;</a>
+
+        <div class="chat-header">Чат бот</div> <!-- Заголовок по центру -->
         <div class="chat-box" id="chatBox">
             <p><strong>Здравствуйте! Готов ответить на ваш вопрос</strong></p>
         </div>
-        <div class="loading" id="loading">Бот печатает...</div> <!-- Перемещено над полем ввода -->
+        <div class="loading" id="loading">Бот печатает...</div>
         <div class="chat-input-container">
             <input type="text" class="chat-input" id="chatInput" placeholder="Введите ваш вопрос">
             <button class="send-button" onclick="sendMessage()">Отправить</button>
@@ -152,7 +156,7 @@
             // Сообщение пользователя
             const userMessage = document.createElement('div');
             userMessage.className = 'message user-message';
-            userMessage.innerHTML = `<strong>Вы:</strong> ${message}`;
+            userMessage.textContent = message; // Убрана надпись "Вы:"
             chatBox.appendChild(userMessage);
             chatInput.value = '';
             chatBox.scrollTop = chatBox.scrollHeight;
@@ -183,7 +187,7 @@
                     // Сообщение бота
                     const botMessage = document.createElement('div');
                     botMessage.className = 'message bot-message';
-                    botMessage.innerHTML = `<strong>Бот:</strong> ${data.reply}`;
+                    botMessage.textContent = data.reply; // Убрана надпись "Бот:"
                     chatBox.appendChild(botMessage);
                     chatBox.scrollTop = chatBox.scrollHeight;
                 } else {
@@ -193,7 +197,7 @@
                 console.error('Ошибка сети:', error);
                 const errorMessage = document.createElement('div');
                 errorMessage.className = 'message bot-message';
-                errorMessage.innerHTML = `<strong>Бот:</strong> Произошла ошибка при обработке вашего запроса. Пожалуйста, попробуйте еще раз.`;
+                errorMessage.textContent = 'Произошла ошибка при обработке вашего запроса. Пожалуйста, попробуйте еще раз.';
                 chatBox.appendChild(errorMessage);
                 chatBox.scrollTop = chatBox.scrollHeight;
             } finally {
