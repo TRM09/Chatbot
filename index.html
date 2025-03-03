@@ -33,7 +33,7 @@
             color: #a347cc;
             text-align: center; /* Заголовок по центру */
             padding: 10px 0; /* Отступы для заголовка */
-            position: relative; /* Для позиционирования стрелки */
+            position: relative; /* Для позиционирования кнопки */
         }
         .chat-box {
             background: #d9d9d9;
@@ -74,18 +74,20 @@
         }
         .back-button {
             position: absolute;
-            top: 5px; /* Поднята выше */
+            top: 15px; /* Опущена ниже */
             left: 10px;
-            font-size: 32px; /* Увеличенный размер стрелки */
-            color: #5A9BD5;
-            text-decoration: none;
+            background: #5A9BD5; /* Синий фон, как у кнопок внизу */
+            color: white; /* Белый текст */
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px; /* Отступы внутри кнопки */
+            font-size: 14px; /* Размер текста */
             cursor: pointer;
-            font-weight: bold;
-            line-height: 1;
-            display: inline-block; /* Чтобы область нажатия соответствовала размеру стрелки */
+            text-decoration: none; /* Убираем подчеркивание */
+            display: inline-block;
         }
         .back-button:hover {
-            color: #4a8ac4;
+            background: #4a8ac4; /* Темный оттенок синего при наведении */
         }
         .clear-button {
             margin-top: 10px;
@@ -130,8 +132,8 @@
 </head>
 <body>
     <div class="chat-container">
-        <!-- Стрелка "назад" с ссылкой -->
-        <a href="https://myappreshenie.netlify.app" class="back-button">&#x2190;</a>
+        <!-- Кнопка "Назад" с ссылкой -->
+        <a href="https://app.netlify.com/sites/myappreshenie/overview" class="back-button" target="_blank">Назад</a>
 
         <div class="chat-header">Чат бот</div> <!-- Заголовок по центру -->
         <div class="chat-box" id="chatBox">
